@@ -3,14 +3,10 @@
 int main()
 {
 	int ch, data;
-	struct Queue q;
-	q.front = -1;
-	q.rear = -1;
-	
-	q.enqueue = enqueue;
-	q.dequeue = dequeue;
-	q.print = print; 
-	
+	struct Queue* q;
+
+	q = createQueue(q);
+		
 	printf ("Queue implementation using function pointer and structure\n");
 	printf ("=========================================================\n");
 
@@ -23,15 +19,15 @@ int main()
 			case 1:
 				printf ("Enter the data to be enqueued: ");
 				scanf ("%d", &data);
-				q.enqueue (&q, data);
+				enqueue (q, data);
 			break;
 
 			case 2:
-				printf("Element dequeued: %d\n", q.dequeue(&q));
+				printf("Element dequeued: %d\n", dequeue(q));
 			break;
 			
 			case 3:
-				q.print(&q);
+				print(q);
 			break;
 
 			case 4:
