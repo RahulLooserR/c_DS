@@ -2,34 +2,37 @@
 
 void BFS (struct Graph* graph, int src)
 {
-	struct Queue q;
-	q.front = -1; 
-	q.rear = -1; 
-	
-	// assigning function pointer to the fucntions
-	q.enqueue = enqueue;
-	q.dequeue = dequeue;
-	q.print = print;
+	struct Queue* q;
+	int vertex; 
+	// creating queue
+	q = createQueue(q);
 
-	/* 
-	q.enqueue(&q, data)
-	q.dequeue(&q)
-	q.print(&q)
-	*/   
-	q.enqueue (&q, src);
+	// marking start node as visited node
 	graph->visited[src] = 1;
-
-	struct Node* temp = graph->array[src];
-	int vertex = q.dequeue(&q);
-
-	while ()
-		printf ("%d ", vertex);
 	
+
+	// enqueuing start node
+	enqueue(q, src);
+
+	// if queue is not empty
+	while (!isQEmpty(q)){
+
+		// dequeue current vertex
+		vertex = dequeue(q);
+		printf ("%d ", vertex);
+
+		// coming back to dequeued vertex and traversing adjacent nodes
+		struct Node* temp = graph->array[vertex];
+
 		while (temp){
-			q.enqueue(&q, temp->vertex);
-			graph->visited[temp->vertex] = 1;
+			int adjVertex = temp->vertex;
+			
+			// if node is not visited, mark it visited and enqueu it
+			if(graph->visited[adjVertex] == 0){
+				graph->visited[adjVertex] = 1;
+				enqueue(q, adjVertex);
+			}
 			temp = temp->next;
 		}
-		vertex = q.dequeue(&q);
 	}
 }
